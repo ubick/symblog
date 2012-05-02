@@ -15,3 +15,10 @@ FreestoneBlogBundle_contact:
   defaults: { _controller: FreestoneBlogBundle:Page:contact }
   requirements:
       _method: GET|POST
+      
+FreestoneBlogBundle_blog_show:
+  pattern: /{id}
+  defaults: { _controller: FreestoneBlogBundle:Blog:show }
+  requirements:
+    _method: GET
+    id: \d+
