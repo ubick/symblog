@@ -15,7 +15,10 @@ use Freestone\BlogBundle\Form\EnquiryType;
 class PageController extends Controller {
 
     public function indexAction() {
-        return $this->render('FreestoneBlogBundle:Page:index.html.twig');
+        $em = $this->getDoctrine()->getEntityManager();
+        $blogs = $em->getRepository('FreestoneBlogBundle:Blog')->getLatestBlogs();
+
+        return $this->render('FreestoneBlogBundle:Page:index.html.twig', compact('blogs'));
     }
 
     public function aboutAction() {
@@ -39,7 +42,7 @@ class PageController extends Controller {
                     ->setTo($this->container->getParameter('freestone_blog.emails.contact_email'))
                     ->setBody($this->renderView('FreestoneBlogBundle:Page:contactEmail.txt.twig', compact('enquiry')));
                 $this->get('mailer')->send($message);
-                
+
                 $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was succesfully sent. Thanks dude!');
 
                 return $this->redirect($this->generateUrl('FreestoneBlogBundle_contact'));

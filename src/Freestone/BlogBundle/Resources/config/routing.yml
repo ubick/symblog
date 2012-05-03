@@ -22,3 +22,10 @@ FreestoneBlogBundle_blog_show:
   requirements:
     _method: GET
     id: \d+
+    
+FreestoneBlogBundle_comment_create:
+  pattern: /comment/{blog_id}
+  defaults: { _controller: FreestoneBlogBundle:Comment:create }
+  requirements:
+    _method: POST
+    blog_id: \d+

@@ -9,9 +9,10 @@
 namespace Freestone\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Freestone\BlogBundle\Repository\BlogRepository")
  * @ORM\Table(name="blog") 
  * @ORM\HasLifecycleCallbacks()
  */
@@ -49,6 +50,9 @@ class Blog {
      */
     protected $tags;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     */
     protected $comments;
 
     /**
@@ -62,6 +66,7 @@ class Blog {
     protected $updated;
 
     public function __construct() {
+        $this->comments = new ArrayCollection();
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
     }
@@ -138,8 +143,12 @@ class Blog {
      *
      * @return text 
      */
-    public function getBlog()
+    public function getBlog($length = null)
     {
+        if (false === is_null($length) && $length > 0) {
+            return substr($this->blog, 0, $length);
+        }
+        
         return $this->blog;
     }
 
@@ -221,5 +230,29 @@ class Blog {
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param Freestone\BlogBundle\Entity\Comment $comments
+     */
+    public function addComment(\Freestone\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    
+    public function __toString() {
+        return $this->getTitle();
     }
 }

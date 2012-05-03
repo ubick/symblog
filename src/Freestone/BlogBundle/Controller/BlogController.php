@@ -19,8 +19,10 @@ class BlogController extends Controller {
         if (!$blog) {
             throw $this->createNotFoundException('Unable to find Blog post.');
         }
+        
+        $comments = $em->getRepository('FreestoneBlogBundle:Comment')->getCommentsForBlog($blog->getId());
 
-        return $this->render('FreestoneBlogBundle:Blog:show.html.twig', compact('blog'));
+        return $this->render('FreestoneBlogBundle:Blog:show.html.twig', compact('blog', 'comments'));
     }
     
 }
