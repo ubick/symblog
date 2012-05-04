@@ -28,6 +28,11 @@ class Blog {
     /**
      * @ORM\Column(type="string")
      */
+    protected $slug;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
     protected $title;
 
     /**
@@ -230,5 +235,29 @@ class Blog {
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param Freestone\BlogBundle\Entity\Comment $comments
+     */
+    public function addComment(\Freestone\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    
+    public function __toString() {
+        return $this->getTitle();
     }
 }

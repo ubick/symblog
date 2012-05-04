@@ -17,7 +17,7 @@ FreestoneBlogBundle_contact:
       _method: GET|POST
       
 FreestoneBlogBundle_blog_show:
-  pattern: /{id}
+  pattern: /{id}/{slug}
   defaults: { _controller: FreestoneBlogBundle:Blog:show }
   requirements:
     _method: GET

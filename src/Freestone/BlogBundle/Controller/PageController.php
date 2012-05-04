@@ -53,5 +53,18 @@ class PageController extends Controller {
                 'form' => $form->createView()
             ));
     }
+    
+    public function sidebarAction() {
+        $em = $this->getDoctrine()->getEntityManager();
+        $blog = $em->getRepository('FreestoneBlogBundle:Blog');
+        
+        $base_tags = $blog->getTags();
+        $tags = $blog->getTagWeights($base_tags);
+        
+        $commentLimit = $this->container->getParameter('freestone_blog.comments.latest_comment_limit');
+        $latestComments = $em->getRepository('FreestoneBlogBundle:Comment')->getLatestComments($commentLimit);
+        
+        return $this->render('FreestoneBlogBundle:Page:sidebar.html.twig', compact('tags', 'latestComments'));
+    }
 
 }

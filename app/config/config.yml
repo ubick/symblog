@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.ini }
     - { resource: security.yml }
-    - { resource: @FreestoneBlogBundle/Resources/config/config.yml }
+    - { resource: ../../src/Freestone/BlogBundle/Resources/config/config.yml }
 
 framework:
     #esi:             ~
@@ -31,8 +31,8 @@ assetic:
         cssrewrite: ~
         # closure:
         #     jar: %kernel.root_dir%/java/compiler.jar
-        # yui_css:
-        #     jar: %kernel.root_dir%/java/yuicompressor-2.4.2.jar
+        yui_css:
+            jar: %kernel.root_dir%/java/yuicompressor-2.4.7.jar
 
 # Doctrine Configuration
 doctrine:
