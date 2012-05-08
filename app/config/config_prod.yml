@@ -1,6 +1,10 @@
 imports:
     - { resource: config.yml }
 
+parameters:
+  database_user: %database.user%
+  database_password: %database.password%
+
 #doctrine:
 #    orm:
 #        metadata_cache_driver: apc

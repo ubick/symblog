@@ -1,6 +1,10 @@
 imports:
     - { resource: config_dev.yml }
 
+parameters:
+  database_user: %database.user%
+  database_password: %database.password%  
+
 framework:
     test: ~
     session:
